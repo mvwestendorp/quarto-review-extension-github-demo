@@ -1,11 +1,2 @@
 The extension uses OAuth Device Flow to authenticate: test
-3. A pull request is created automatically
-4. Comments are included in the PR description
-
-## Try It Out!
-
-1. Make some edits to this document
-2. Add a few comments
-3. Click "Submit to Git" when ready
-4. Follow the authentication flow
 5. Your review will be submitted as a PR!

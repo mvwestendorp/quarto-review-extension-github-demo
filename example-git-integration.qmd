@@ -29,6 +29,8 @@ This is a paragraph you can review. Try selecting this text and adding a comment
 
 You can also **double-click** to edit this text directly in the browser.
 
+Interesting tech!
+
 ## Technical Details
 
 When you submit a review:

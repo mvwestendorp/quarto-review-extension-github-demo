@@ -1,4 +1,4 @@
-- No redirect URLs needed
+- No redirect URLs needed test
 - Works with static HTML files test
 - Secure authentication flow test123
 - Creates branches and PRs automatically test1234The extension uses OAuth Device Flow to authenticate\: test

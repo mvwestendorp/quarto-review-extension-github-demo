@@ -13,7 +13,7 @@ This example demonstrates the Web Review extension with Git integration enabled.
 
 ### How It Works
 
-The extension uses OAuth Device Flow to authenticate:
+The extension uses OAuth Device Flow to authenticate\: test
 
 - No redirect URLs needed
 - Works with static HTML files

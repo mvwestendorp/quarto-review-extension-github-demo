@@ -1,13 +1,4 @@
-
-
-## Getting Started with Git Integration
-
-This example demonstrates the Web Review extension with Git integration enabled.
-
 The extension uses OAuth Device Flow to authenticate: test
-
-- No redirect URLs needed
-- Works with static HTML files
 - Secure authentication flow
 - Creates branches and PRs automatically
 

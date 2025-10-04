@@ -21,8 +21,8 @@ web-review:
     provider: "github"
     client-id: "Ov23liciIyUSEqziWxVe"  # Your OAuth App Client ID
     repository:
-      owner: "your-username"  # Replace with your GitHub username
-      repo: "your-repo-name"  # Replace with your repository name
+      owner: "mvwestendorp"  # Replace with your GitHub username
+      repo: "quarto-review-extension-github-demo"  # Replace with your repository name
       branch: "main"
 ---
 

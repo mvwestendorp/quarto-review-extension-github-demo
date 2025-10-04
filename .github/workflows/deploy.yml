@@ -28,10 +28,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Checkout web-review extension from private repo
+        uses: actions/checkout@v4
+        with:
+          repository: mvwestendorp/quarto-review-extension  # Replace with your private repo
+          token: ${{ secrets.EXTENSION_REPO_TOKEN }}
+          path: _extensions/web-review
+
       - name: Setup Quarto
         uses: quarto-dev/quarto-actions/setup@v2
         with:
-          version: 'latest'
+          version: 'release'
 
       - name: Render Quarto documents
         run: |

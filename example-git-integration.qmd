@@ -33,12 +33,9 @@ You can also **double-click** to edit this text directly in the browser.
 
 When you submit a review:
 
-1. A new branch is created: `review/your-username-timestamp`
-
-2. Your changes are committed to that branchtest
-
+1. A new branch is created: `review/your-username-timestamp` <!-- review-comment -->
+2. Your changes are committed to that branch
 3. A pull request is created automatically
-
 4. Comments are included in the PR description
 
 ## Try It Out!

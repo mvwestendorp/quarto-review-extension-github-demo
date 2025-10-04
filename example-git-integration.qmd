@@ -1,13 +1,4 @@
-- No redirect URLs needed test
-- Works with static HTML files
-- Secure authentication flow
-- Creates branches and PRs automaticallyThe extension uses OAuth Device Flow to authenticate: test
-## Technical Details
-
-When you submit a review:
-
-1. A new branch is created: `review/your-username-timestamp`
-2. Your changes are committed to that branch
+The extension uses OAuth Device Flow to authenticate: test
 3. A pull request is created automatically
 4. Comments are included in the PR description
 

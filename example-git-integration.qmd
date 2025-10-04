@@ -1,4 +1,7 @@
-
+- No redirect URLs needed test
+- Works with static HTML files test
+- Secure authentication flow test123
+- Creates branches and PRs automatically test1234The extension uses OAuth Device Flow to authenticate: test
 
 ## Getting Started with Git Integration
 
@@ -13,11 +16,11 @@ This example demonstrates the Web Review extension with Git integration enabled.
 
 ### How It Works
 
-The extension uses OAuth Device Flow to authenticate:
+The extension uses OAuth Device Flow to authenticate\: test
 
 - No redirect URLs needed
 - Works with static HTML files
-- Secure authentication flow
+- Secure authentication flow test123
 - Creates branches and PRs automatically
 
 ### Example Content
@@ -25,6 +28,8 @@ The extension uses OAuth Device Flow to authenticate:
 This is a paragraph you can review. Try selecting this text and adding a comment!
 
 You can also **double-click** to edit this text directly in the browser.
+
+Interesting tech!
 
 ## Technical Details
 

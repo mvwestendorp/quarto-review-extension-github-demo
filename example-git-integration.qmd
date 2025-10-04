@@ -17,7 +17,7 @@ The extension uses OAuth Device Flow to authenticate\: test
 
 - No redirect URLs needed
 - Works with static HTML files
-- Secure authentication flow
+- Secure authentication flow test123
 - Creates branches and PRs automatically
 
 ### Example Content

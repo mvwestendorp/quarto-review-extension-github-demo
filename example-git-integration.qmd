@@ -7,8 +7,11 @@ This example demonstrates the Web Review extension with Git integration enabled.
 ### What You Can Do
 
 1. **Review the document** - Add comments and suggest changes as usual
-2. **Connect to GitHub** - Click the "Connect to Git" button in the toolbar
+
+2. **Connect to GitHub** - Click the \"Connect to Git\" button in the toolbar
+
 3. **Authenticate** - Follow the device flow instructions to authenticate
+
 4. **Submit Review** - Your changes will be submitted as a Pull Request
 
 ### How It Works

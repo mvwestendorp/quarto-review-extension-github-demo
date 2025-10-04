@@ -48,7 +48,7 @@ jobs:
 
       - name: Render Quarto documents
         run: |
-          quarto render my-document.qmd --output-dir docs
+          quarto render my-document.qmd --output-dir docs --output index.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

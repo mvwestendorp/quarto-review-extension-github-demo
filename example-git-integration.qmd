@@ -4,6 +4,8 @@ d
 
 This example demonstrates the Web Review extension with Git integration enabled.
 
+Test
+
 ### What You Can Do
 
 1. **Review the document** - Add comments and suggest changes as usual

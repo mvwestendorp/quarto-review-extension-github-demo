@@ -1,4 +1,4 @@
-
+The extension uses OAuth Device Flow to authenticate\: test
 
 ## Getting Started with Git Integration
 

@@ -1,13 +1,4 @@
 The extension uses OAuth Device Flow to authenticate: test
-- Secure authentication flow
-- Creates branches and PRs automatically
-
-### Example Content
-
-This is a paragraph you can review. Try selecting this text and adding a comment!
-
-You can also **double-click** to edit this text directly in the browser.
-
 ## Technical Details
 
 When you submit a review:

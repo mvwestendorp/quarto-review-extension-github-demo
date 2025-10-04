@@ -31,9 +31,15 @@ jobs:
       - name: Checkout web-review extension from private repo
         uses: actions/checkout@v4
         with:
-          repository: mvwestendorp/quarto-review-extension  # Replace with your private repo
+          repository: mvwestendorp/quarto-review-extension
           token: ${{ secrets.EXTENSION_REPO_TOKEN }}
-          path: _extensions/web-review
+          path: extension-temp
+
+      - name: Move extension to correct location
+        run: |
+          mkdir -p _extensions
+          mv extension-temp/_extensions/web-review _extensions/web-review
+          rm -rf extension-temp
 
       - name: Setup Quarto
         uses: quarto-dev/quarto-actions/setup@v2

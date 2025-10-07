@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-review-demo
+  labels:
+    app: nginx
+spec:
+  ports:
+    - port: 80
+      name: http-review-demo
+  selector:
+    app: nginx
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: review-portal
+spec:
+  hostnames:
+  - insert.your.hostname
+  parentRefs:
+    - name: insert-your-gateway-name
+      namespace: insert-your-gateway-namespace
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: nginx-review-demo
+          kind: Service
+          port: 80

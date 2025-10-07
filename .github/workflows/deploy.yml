@@ -84,6 +84,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
 
+      - name: Checkout web-review extension from private repo
+        uses: actions/checkout@v4
+        with:
+          repository: mvwestendorp/quarto-review-extension
+          ref: git-integration
+          token: ${{ secrets.EXTENSION_REPO_TOKEN }}
+          path: extension-temp
+
+      - name: Move extension to correct location
+        run: |
+          mkdir -p _extensions
+          mv extension-temp/_extensions/web-review _extensions/web-review
+          rm -rf extension-temp
+
       - name: Log in to the Container registry
         uses: docker/login-action@v3
         with:

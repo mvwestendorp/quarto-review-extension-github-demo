@@ -1,15 +1,12 @@
 ---
-title: "Reviewable Technical Document"
-author: "Your Name"
-date: last-modified
+title: "Example Document with Git Integration"
 format:
   html:
-    toc: true
-    toc-location: left
     filters:
       - _extensions/web-review/web-review.lua
 web-review:
   enabled: true
+  debug: true
   mode: "review"
   features:
     comments: true
@@ -18,79 +15,53 @@ web-review:
     diff-view: true
   git:
     enabled: true
+    source-file: "example-git-integration.qmd"
     provider: "github"
-    client-id: "Ov23liciIyUSEqziWxVe"  # Your OAuth App Client ID
     repository:
-      owner: "mvwestendorp"  # Replace with your GitHub username
-      repo: "quarto-review-extension-github-demo"  # Replace with your repository name
+      owner: "mvwestendorp"
+      repo: "quarto-review-extension-github-demo"
       branch: "main"
 ---
 
-## Introduction
+## Getting Started with Git Integration
 
-This is an example technical document that can be reviewed collaboratively using the Quarto Web Review extension with Git integration.
+This example demonstrates the Web Review extension with Git integration enabled.
 
-### How to Review This Document
+### What You Can Do
 
-1. **Browse the document** - Read through the content
-2. **Add comments** - Select any text and click "Add Comment"
-3. **Suggest changes** - Double-click any paragraph to edit
-4. **Submit to Git** - Click the GitHub button in the toolbar to submit your review
+1. **Review the document** - Add comments and suggest changes as usual
+2. **Connect to GitHub** - Click the "Connect to Git" button in the toolbar
+3. **Authenticate** - Follow the device flow instructions to authenticate
+4. **Submit Review** - Your changes will be submitted as a Pull Request
 
-## Technical Content
+### How It Works
 
-### Example Section
+The extension uses OAuth Device Flow to authenticate:
 
-This paragraph contains some technical information that reviewers might want to comment on or suggest changes to. Try selecting this text and adding a comment!
+- No redirect URLs needed
+- Works with static HTML files
+- Secure authentication flow
+- Creates branches and PRs automatically
 
-The review system allows you to:
+### Example Content
 
-- Add inline comments to specific text selections
-- Suggest edits to paragraphs, headings, and other elements
-- Track changes with visual diff highlighting
-- Submit all changes as a Pull Request on GitHub
+This is a paragraph you can review. Try selecting this text and adding a comment!
 
-### Code Example
+You can also **double-click** to edit this text directly in the browser.
 
-```python
-def process_data(input_file):
-    """Process data from input file."""
-    with open(input_file, 'r') as f:
-        data = f.read()
-    return data.strip()
-```
+## Technical Details
 
-You can review code blocks too! Comments and suggestions help improve code quality.
+When you submit a review:
 
-### More Content
+1. A new branch is created: `review/your-username-timestamp`
+2. Your changes are committed to that branch
+3. A pull request is created automatically
+4. Comments are included in the PR description
 
-Add more sections here. Each section can be independently reviewed, commented on, and edited by your reviewers.
+## Try It Out!
 
-## Submitting Your Review
-
-When you're done reviewing:
-
-1. Click the **GitHub icon** (Submit to Git button) in the toolbar
-2. If not already authenticated:
-   - A modal will show a device code
-   - Visit `https://github.com/login/device`
-   - Enter the code and authorize
-3. Your review will be submitted as a Pull Request
-4. The PR will contain:
-   - All your suggested changes as commits
-   - Your comments in the PR description
-   - A link back to this review
-
-## What Happens Next?
-
-The document author will:
-
-1. Receive a notification about your PR
-2. Review your changes in GitHub
-3. Accept or reject individual changes
-4. Merge approved changes back to the main branch
-5. The updated document will be automatically deployed
-
----
-
-**Note:** This is a live example. Feel free to make edits and test the review workflow!
+1. Make some edits to this document
+2. Add a few comments
+3. Click "Submit to Git" when ready
+4. Follow the authentication flow
+5. Your review will be submitted as a PR!

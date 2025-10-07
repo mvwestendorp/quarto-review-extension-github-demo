@@ -22,7 +22,7 @@ concurrency:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: quarto-review-demo
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   build:

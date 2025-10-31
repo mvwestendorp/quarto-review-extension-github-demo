@@ -48,10 +48,11 @@ jobs:
             exit 1
           fi
           curl -L ${TOKEN:+-H "Authorization: Bearer $TOKEN"} -o extension.zip "$DOWNLOAD_URL"
-          rm -rf _extensions/web-review
+          rm -rf extension-temp _extensions
+          unzip extension.zip -d extension-temp
           mkdir -p _extensions
-          unzip -o extension.zip -d _extensions
-          rm extension.zip
+          cp -R extension-temp/_extensions/review _extensions/
+          rm -rf extension-temp extension.zip
 
       - name: Setup Quarto
         uses: quarto-dev/quarto-actions/setup@v2
@@ -111,10 +112,11 @@ jobs:
             exit 1
           fi
           curl -L ${TOKEN:+-H "Authorization: Bearer $TOKEN"} -o extension.zip "$DOWNLOAD_URL"
-          rm -rf _extensions/web-review
+          rm -rf extension-temp _extensions
+          unzip extension.zip -d extension-temp
           mkdir -p _extensions
-          unzip -o extension.zip -d _extensions
-          rm extension.zip
+          cp -R extension-temp/_extensions/review _extensions/
+          rm -rf extension-temp extension.zip
 
       - name: Log in to the Container registry
         uses: docker/login-action@v3

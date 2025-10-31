@@ -4,8 +4,6 @@ ARG EXTENSION_BUNDLE_URL="https://github.com/mvwestendorp/quarto-review-extensio
 
 WORKDIR /site
 
-# project files
-env DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y curl unzip && rm -rf /var/lib/apt/lists/*
 
 COPY _quarto.yml .
@@ -15,9 +13,11 @@ COPY doc-translation.qmd doc-translation.qmd
 COPY styles.css styles.css
 
 RUN curl -sSL "$EXTENSION_BUNDLE_URL" -o extension.zip \
+    && rm -rf extension-temp _extensions \
+    && unzip extension.zip -d extension-temp \
     && mkdir -p _extensions \
-    && unzip -o extension.zip -d _extensions \
-    && rm extension.zip
+    && cp -R extension-temp/_extensions/review _extensions/ \
+    && rm -rf extension-temp extension.zip
 
 RUN quarto render --no-cache
 

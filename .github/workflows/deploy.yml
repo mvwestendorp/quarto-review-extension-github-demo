@@ -17,7 +17,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  EXTENSION_REPO: <owner>/quarto-review-extension
+  EXTENSION_REPO: mvwestendorp/quarto-review-extension
   EXTENSION_BUNDLE_PATTERN: "quarto-review-extension-.*\\.zip"
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}

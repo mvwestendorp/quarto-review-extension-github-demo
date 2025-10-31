@@ -1,3 +1,5 @@
+[![Deploy to GitHub Pages](https://github.com/mvwestendorp/quarto-review-extension-github-demo/actions/workflows/deploy.yml/badge.svg)](https://github.com/mvwestendorp/quarto-review-extension-github-demo/actions/workflows/deploy.yml)
+
 # Quarto Review Demo (GitHub)
 
 This repository renders the sample Quarto project from `example/` and deploys it to

@@ -38,16 +38,22 @@ jobs:
           TOKEN: ${{ secrets.EXTENSION_BUNDLE_TOKEN }}
         run: |
           API_URL="https://api.github.com/repos/${{ env.EXTENSION_REPO }}/releases/tags/continuous"
+          AUTH_HEADER=""
           if [ -n "$TOKEN" ]; then
-            AUTH_HEADER="-H \"Authorization: Bearer $TOKEN\""
-          else
-            AUTH_HEADER=""
+            AUTH_HEADER="-H Authorization: Bearer $TOKEN"
           fi
-          DOWNLOAD_URL=$(curl -sL $AUTH_HEADER "$API_URL" | jq -r ".assets[] | select(.name | test(\"${{ env.EXTENSION_BUNDLE_PATTERN }}\")) | .browser_download_url" | head -n 1)
+
+          DOWNLOAD_URL=$(
+            curl -sL $AUTH_HEADER "$API_URL" |
+              jq -r --arg pattern "${{ env.EXTENSION_BUNDLE_PATTERN }}" \
+                '.assets[] | select(.name | test($pattern)) | .browser_download_url' |
+              head -n 1
+          )
           if [ -z "$DOWNLOAD_URL" ]; then
             echo "No bundle matching pattern found in release"
             exit 1
           fi
+
           curl -L ${TOKEN:+-H "Authorization: Bearer $TOKEN"} -o extension.zip "$DOWNLOAD_URL"
           rm -rf _extensions/web-review
           mkdir -p _extensions
@@ -101,16 +107,22 @@ jobs:
           TOKEN: ${{ secrets.EXTENSION_BUNDLE_TOKEN }}
         run: |
           API_URL="https://api.github.com/repos/${{ env.EXTENSION_REPO }}/releases/tags/continuous"
+          AUTH_HEADER=""
           if [ -n "$TOKEN" ]; then
-            AUTH_HEADER="-H \"Authorization: Bearer $TOKEN\""
-          else
-            AUTH_HEADER=""
+            AUTH_HEADER="-H Authorization: Bearer $TOKEN"
           fi
-          DOWNLOAD_URL=$(curl -sL $AUTH_HEADER "$API_URL" | jq -r ".assets[] | select(.name | test(\"${{ env.EXTENSION_BUNDLE_PATTERN }}\")) | .browser_download_url" | head -n 1)
+
+          DOWNLOAD_URL=$(
+            curl -sL $AUTH_HEADER "$API_URL" |
+              jq -r --arg pattern "${{ env.EXTENSION_BUNDLE_PATTERN }}" \
+                '.assets[] | select(.name | test($pattern)) | .browser_download_url' |
+              head -n 1
+          )
           if [ -z "$DOWNLOAD_URL" ]; then
             echo "No bundle matching pattern found in release"
             exit 1
           fi
+
           curl -L ${TOKEN:+-H "Authorization: Bearer $TOKEN"} -o extension.zip "$DOWNLOAD_URL"
           rm -rf _extensions/web-review
           mkdir -p _extensions

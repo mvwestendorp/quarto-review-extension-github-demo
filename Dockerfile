@@ -5,6 +5,7 @@ ARG EXTENSION_BUNDLE_URL="https://github.com/mvwestendorp/quarto-review-extensio
 WORKDIR /site
 
 RUN apt-get update && apt-get install -y curl unzip r-base && rm -rf /var/lib/apt/lists/*
+RUN Rscript -e 'install.packages(c("rmarkdown","knitr"), repos="https://cloud.r-project.org")'
 
 COPY _quarto.yml .
 COPY document.qmd document.qmd

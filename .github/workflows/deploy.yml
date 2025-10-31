@@ -31,7 +31,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install -y jq r-base
+        run: |
+          sudo apt-get update && sudo apt-get install -y jq r-base
+          sudo Rscript -e 'install.packages(c("rmarkdown","knitr"), repos="https://cloud.r-project.org")'
 
       - name: Download latest extension bundle
         env:
@@ -95,7 +97,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install -y jq r-base
+        run: |
+          sudo apt-get update && sudo apt-get install -y jq r-base
+          sudo Rscript -e 'install.packages(c("rmarkdown","knitr"), repos="https://cloud.r-project.org")'
 
       - name: Download latest extension bundle
         env:

@@ -55,7 +55,7 @@ jobs:
           fi
 
           curl -L ${TOKEN:+-H "Authorization: Bearer $TOKEN"} -o extension.zip "$DOWNLOAD_URL"
-          rm -rf _extensions/web-review
+          rm -rf _extensions/review
           mkdir -p _extensions
           unzip -o extension.zip -d _extensions
           rm extension.zip
@@ -124,7 +124,7 @@ jobs:
           fi
 
           curl -L ${TOKEN:+-H "Authorization: Bearer $TOKEN"} -o extension.zip "$DOWNLOAD_URL"
-          rm -rf _extensions/web-review
+          rm -rf _extensions/review
           mkdir -p _extensions
           unzip -o extension.zip -d _extensions
           rm extension.zip

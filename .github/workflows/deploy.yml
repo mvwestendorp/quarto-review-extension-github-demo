@@ -31,25 +31,35 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install dependencies
+        env:
+          DEBIAN_FRONTEND: noninteractive
         run: |
-          sudo apt-get update && sudo apt-get install -y jq r-base
-          sudo Rscript -e 'install.packages(c("rmarkdown","knitr"), repos="https://cloud.r-project.org")'
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends tzdata jq r-base r-cran-rmarkdown r-cran-knitr curl unzip
+          sudo ln -fs /usr/share/zoneinfo/Etc/UTC /etc/localtime
+          sudo dpkg-reconfigure --frontend noninteractive tzdata
+          sudo apt-get clean
+          sudo rm -rf /var/lib/apt/lists/*
 
       - name: Download latest extension bundle
         env:
           TOKEN: ${{ secrets.EXTENSION_BUNDLE_TOKEN }}
         run: |
           API_URL="https://api.github.com/repos/${{ env.EXTENSION_REPO }}/releases/tags/continuous"
-          AUTH_HEADER=""
+          AUTH_HEADER=()
           if [ -n "$TOKEN" ]; then
-            AUTH_HEADER="-H Authorization: Bearer $TOKEN"
+            AUTH_HEADER=(-H "Authorization: Bearer $TOKEN")
           fi
-          DOWNLOAD_URL=$(curl -sL $AUTH_HEADER "$API_URL" | jq -r --arg pattern "${{ env.EXTENSION_BUNDLE_PATTERN }}" '.assets[] | select(.name | test($pattern)) | .browser_download_url' | head -n 1)
+          DOWNLOAD_URL=$(curl -sSL "${AUTH_HEADER[@]}" "$API_URL" | jq -r --arg pattern "${{ env.EXTENSION_BUNDLE_PATTERN }}" '.assets[] | select(.name | test($pattern)) | .browser_download_url' | head -n 1)
           if [ -z "$DOWNLOAD_URL" ]; then
             echo "No bundle matching pattern found in release"
             exit 1
           fi
-          curl -L ${TOKEN:+-H "Authorization: Bearer $TOKEN"} -o extension.zip "$DOWNLOAD_URL"
+          if [ -n "$TOKEN" ]; then
+            curl -L -H "Authorization: Bearer $TOKEN" -o extension.zip "$DOWNLOAD_URL"
+          else
+            curl -L -o extension.zip "$DOWNLOAD_URL"
+          fi
           rm -rf extension-temp _extensions
           unzip extension.zip -d extension-temp
           mkdir -p _extensions
@@ -97,25 +107,35 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install dependencies
+        env:
+          DEBIAN_FRONTEND: noninteractive
         run: |
-          sudo apt-get update && sudo apt-get install -y jq r-base
-          sudo Rscript -e 'install.packages(c("rmarkdown","knitr"), repos="https://cloud.r-project.org")'
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends tzdata jq r-base r-cran-rmarkdown r-cran-knitr curl unzip
+          sudo ln -fs /usr/share/zoneinfo/Etc/UTC /etc/localtime
+          sudo dpkg-reconfigure --frontend noninteractive tzdata
+          sudo apt-get clean
+          sudo rm -rf /var/lib/apt/lists/*
 
       - name: Download latest extension bundle
         env:
           TOKEN: ${{ secrets.EXTENSION_BUNDLE_TOKEN }}
         run: |
           API_URL="https://api.github.com/repos/${{ env.EXTENSION_REPO }}/releases/tags/continuous"
-          AUTH_HEADER=""
+          AUTH_HEADER=()
           if [ -n "$TOKEN" ]; then
-            AUTH_HEADER="-H Authorization: Bearer $TOKEN"
+            AUTH_HEADER=(-H "Authorization: Bearer $TOKEN")
           fi
-          DOWNLOAD_URL=$(curl -sL $AUTH_HEADER "$API_URL" | jq -r --arg pattern "${{ env.EXTENSION_BUNDLE_PATTERN }}" '.assets[] | select(.name | test($pattern)) | .browser_download_url' | head -n 1)
+          DOWNLOAD_URL=$(curl -sSL "${AUTH_HEADER[@]}" "$API_URL" | jq -r --arg pattern "${{ env.EXTENSION_BUNDLE_PATTERN }}" '.assets[] | select(.name | test($pattern)) | .browser_download_url' | head -n 1)
           if [ -z "$DOWNLOAD_URL" ]; then
             echo "No bundle matching pattern found in release"
             exit 1
           fi
-          curl -L ${TOKEN:+-H "Authorization: Bearer $TOKEN"} -o extension.zip "$DOWNLOAD_URL"
+          if [ -n "$TOKEN" ]; then
+            curl -L -H "Authorization: Bearer $TOKEN" -o extension.zip "$DOWNLOAD_URL"
+          else
+            curl -L -o extension.zip "$DOWNLOAD_URL"
+          fi
           rm -rf extension-temp _extensions
           unzip extension.zip -d extension-temp
           mkdir -p _extensions

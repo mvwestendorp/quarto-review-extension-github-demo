@@ -1,277 +1,79 @@
-# Quarto Web Review - Example Repository
+# Quarto Review Demo (GitHub)
 
-This repository demonstrates a complete setup for collaborative document review using the Quarto Web Review extension with Git integration.
+This repository hosts the demo site for the Quarto Review extension. It renders the
+project located in this folder and publishes the HTML to GitHub Pages (and an
+optional Docker image for on‑prem distribution). The extension code itself lives
+in [mvwestendorp/quarto-review-extension](https://github.com/mvwestendorp/quarto-review-extension).
 
-## 🚀 Live Demo
+## Contents
 
-Once deployed, your document will be available at:
-- **GitHub Pages URL:** `https://your-username.github.io/your-repo-name/my-document.html`
+- `_quarto.yml`, `document.qmd`, `debug-example.qmd`, `doc-translation.qmd`, `styles.css` –
+  a Quarto website taken from the extension's `example/` project.
+- `.github/workflows/deploy.yml` – downloads the latest extension bundle, renders the
+  site, deploys to GitHub Pages, and publishes a container image.
+- `Dockerfile` – builds a container image that serves the rendered site via Nginx.
+- `manifests/` – Kubernetes manifests for on-prem deployments.
 
-## 📋 Quick Setup (5 minutes)
+## Rendering locally
 
-### Step 1: Fork/Clone This Repository
+1. Fetch the latest extension bundle (replace the release tag or version as needed):
 
-```bash
-# Option 1: Use this as a template on GitHub (recommended)
-# Click "Use this template" button on GitHub
+   ```bash
+   EXTENSION_BUNDLE_URL="https://github.com/mvwestendorp/quarto-review-extension/releases/download/continuous/quarto-review-extension-0.1.0.zip"
+   curl -L "$EXTENSION_BUNDLE_URL" -o extension.zip
+   rm -rf _extensions
+   mkdir -p _extensions
+   unzip -o extension.zip -d _extensions
+   rm extension.zip
+   ```
 
-# Option 2: Clone locally
-git clone <your-repo-url>
-cd <your-repo-name>
-```
+2. Render the site:
 
-### Step 2: Install the Web Review Extension
+   ```bash
+   quarto render --no-cache
+   ```
 
-```bash
-# Copy the extension to your repository
-cp -r ../_extensions .
-```
+   Output appears in `_output/`. Use `quarto preview` to run a local server.
 
-### Step 3: Create GitHub OAuth App
+## Deploying to GitHub Pages
 
-1. Go to https://github.com/settings/developers
-2. Click **"New OAuth App"**
-3. Fill in:
-   - **Application name:** `Quarto Web Review - [Your Project]`
-   - **Homepage URL:** `https://your-username.github.io/your-repo-name`
-   - **Authorization callback URL:** `https://your-username.github.io/your-repo-name/oauth-callback.html`
-4. **Enable Device Flow** (scroll down, check the box)
-5. Copy your **Client ID** (looks like `Ov23liciIyUSEqziWxVe`)
+The `Deploy to GitHub Pages` workflow:
 
-### Step 4: Configure Your Document
+1. Downloads the latest packaged extension bundle from the `continuous` release.
+2. Extracts it into `_extensions/`.
+3. Runs `quarto render --no-cache` and uploads the `_output/` folder.
+4. Deploys to GitHub Pages.
+5. Builds and pushes the Docker image `ghcr.io/mvwestendorp/quarto-review-extension-github-demo:main`.
 
-Edit `my-document.qmd` and update:
+Requirements:
+- `EXTENSION_BUNDLE_TOKEN` secret (only if the extension repo is private).
+- GitHub Pages set to **GitHub Actions**.
 
-```yaml
-web-review:
-  git:
-    client-id: "YOUR_CLIENT_ID_HERE"  # Paste your Client ID
-    repository:
-      owner: "your-username"           # Your GitHub username
-      repo: "your-repo-name"           # This repository name
-      branch: "main"
-```
+## Docker image
 
-### Step 5: Enable GitHub Pages
-
-1. Go to your repository **Settings** → **Pages**
-2. Under **Source**, select:
-   - Source: **GitHub Actions**
-3. Save settings
-
-### Step 6: Push and Deploy
+Build locally:
 
 ```bash
-git add .
-git commit -m "Configure web review with OAuth"
-git push origin main
+docker build \
+  --build-arg EXTENSION_BUNDLE_URL="https://github.com/mvwestendorp/quarto-review-extension/releases/download/continuous/quarto-review-extension-0.1.0.zip" \
+  -t quarto-review-demo:local .
 ```
 
-GitHub Actions will automatically:
-- Render your Quarto document
-- Deploy to GitHub Pages
-- Your site will be live in ~2 minutes!
+Run:
 
-## 📖 How to Use
-
-### For Reviewers
-
-1. **Visit the live document** at `https://your-username.github.io/your-repo-name/my-document.html`
-
-2. **Review the document:**
-   - Select text to add comments
-   - Double-click paragraphs to suggest edits
-   - Use the toolbar buttons to manage your review
-
-3. **Submit your review:**
-   - Click the **GitHub icon** button (Submit to Git)
-   - Follow the device authentication flow:
-     - Visit `https://github.com/login/device`
-     - Enter the code shown
-     - Authorize the app
-   - Your review will be submitted as a Pull Request!
-
-### For Authors
-
-1. **Receive PR notifications** when reviewers submit changes
-
-2. **Review changes in GitHub:**
-   - View the PR with all suggested changes
-   - See comments in the PR description
-   - Review individual commits (each change is a commit)
-
-3. **Accept/Reject changes:**
-   - Merge the PR to accept all changes
-   - Or cherry-pick specific commits
-   - Or close the PR to reject
-
-4. **Auto-deployment:**
-   - Merged changes automatically deploy
-   - Updated document is live within minutes
-
-## 🏗️ Repository Structure
-
-```
-.
-├── my-document.qmd           # Your reviewable document
-├── _extensions/              # Web Review extension (copy from main project)
-│   └── web-review/
-├── .github/
-│   └── workflows/
-│       └── deploy.yml        # GitHub Actions CI/CD
-├── docs/                     # Generated HTML (ignored in git)
-└── README.md                 # This file
+```bash
+docker run --rm -p 8080:80 quarto-review-demo:local
 ```
 
-## 🔧 Customization
+## Updating to a new extension build
 
-### Add More Documents
+1. Update `EXTENSION_BUNDLE_URL` in the Dockerfile and workflow if the version changes
+   (or continue using the `continuous` tag).
+2. Repeat the rendering steps above to verify changes locally.
+3. Commit the project files and push to `main`. The workflow will redeploy the site
+   and rebuild the container image.
 
-Create additional `.qmd` files:
+## Kubernetes manifests
 
-```yaml
----
-title: "Another Document"
-format:
-  html:
-    filters:
-      - _extensions/web-review/web-review.lua
-web-review:
-  enabled: true
-  git:
-    enabled: true
-    client-id: "YOUR_CLIENT_ID"
----
-```
-
-Update `.github/workflows/deploy.yml` to render multiple files:
-
-```yaml
-- name: Render Quarto documents
-  run: |
-    quarto render my-document.qmd --output-dir docs
-    quarto render another-document.qmd --output-dir docs
-```
-
-### Customize Review Settings
-
-In your document's YAML:
-
-```yaml
-web-review:
-  mode: "review"              # review, author, read-only
-  features:
-    comments: true
-    editing: true
-    versioning: true
-    diff-view: true
-  ui:
-    theme: "default"
-    sidebar-position: "right"
-    diff-style: "side-by-side"
-```
-
-### Add Custom Styling
-
-Create `custom.css`:
-
-```css
-.review-toolbar {
-  background: #your-color;
-}
-```
-
-Include in YAML:
-
-```yaml
-format:
-  html:
-    css: custom.css
-```
-
-## 🔐 Security Notes
-
-### What's Safe to Share
-
-- ✅ **Client ID** - Public, safe to commit to repository
-- ✅ **Repository info** - Public repositories only
-- ✅ **Device codes** - Temporary, expire after use
-
-### Keep Private
-
-- ❌ **Client Secret** - Never needed for Device Flow, but keep it secret
-- ❌ **Access Tokens** - Stored in browser sessionStorage, never committed
-
-### Access Control
-
-- OAuth scopes: `repo` (repository access), `user` (user info)
-- Reviewers need write access to submit PRs
-- Or: Enable "Allow edits from maintainers" on PRs
-
-## 🐛 Troubleshooting
-
-### "Submit to Git" button not visible
-
-**Solution:** Check that Git integration is enabled in your document's YAML:
-
-```yaml
-web-review:
-  git:
-    enabled: true
-    client-id: "YOUR_CLIENT_ID"
-```
-
-### Device Flow authentication fails
-
-**Checklist:**
-- [ ] Device Flow is enabled in OAuth App settings
-- [ ] Client ID is correct in YAML
-- [ ] You authorized within 10 minutes
-- [ ] Browser allows sessionStorage
-
-### Repository not auto-configured
-
-**Solution:** Add repository info to YAML:
-
-```yaml
-web-review:
-  git:
-    repository:
-      owner: "your-username"
-      repo: "your-repo-name"
-      branch: "main"
-```
-
-### GitHub Pages not deploying
-
-**Checklist:**
-- [ ] Pages source is set to "GitHub Actions"
-- [ ] Workflow has `pages: write` permission
-- [ ] Check Actions tab for errors
-- [ ] Wait 2-3 minutes for deployment
-
-## 📚 Additional Resources
-
-- **Main Documentation:** See `../GIT-INTEGRATION-SETUP.md`
-- **Extension Docs:** See `../README.md`
-- **GitHub Actions:** [Quarto Actions](https://github.com/quarto-dev/quarto-actions)
-- **OAuth Device Flow:** [GitHub Docs](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps#device-flow)
-
-## 🤝 Contributing
-
-To add features or fix bugs:
-
-1. Create a branch for your changes
-2. Make your edits
-3. Test locally with `quarto preview`
-4. Submit a PR to the main project repository
-
-## 📄 License
-
-Same license as the main Quarto Web Review extension (MIT).
-
----
-
-**Happy Reviewing! 🎉**
-
-For questions or issues, please open an issue in the main project repository.
+The files in `manifests/` show how to deploy the container image into a cluster. Update
+`quarto-review-deployment.yaml` and the Gateway/HTTPRoute with your actual hostnames and image tags.

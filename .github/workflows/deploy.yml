@@ -42,20 +42,13 @@ jobs:
           if [ -n "$TOKEN" ]; then
             AUTH_HEADER="-H Authorization: Bearer $TOKEN"
           fi
-
-          DOWNLOAD_URL=$(
-            curl -sL $AUTH_HEADER "$API_URL" |
-              jq -r --arg pattern "${{ env.EXTENSION_BUNDLE_PATTERN }}" \
-                '.assets[] | select(.name | test($pattern)) | .browser_download_url' |
-              head -n 1
-          )
+          DOWNLOAD_URL=$(curl -sL $AUTH_HEADER "$API_URL" | jq -r --arg pattern "${{ env.EXTENSION_BUNDLE_PATTERN }}" '.assets[] | select(.name | test($pattern)) | .browser_download_url' | head -n 1)
           if [ -z "$DOWNLOAD_URL" ]; then
             echo "No bundle matching pattern found in release"
             exit 1
           fi
-
           curl -L ${TOKEN:+-H "Authorization: Bearer $TOKEN"} -o extension.zip "$DOWNLOAD_URL"
-          rm -rf _extensions/review
+          rm -rf _extensions/web-review
           mkdir -p _extensions
           unzip -o extension.zip -d _extensions
           rm extension.zip
@@ -67,8 +60,9 @@ jobs:
 
       - name: Render Quarto documents
         run: |
+          quarto render --no-cache
           mkdir -p docs
-          quarto render my-document.qmd --output-dir docs --output index.html
+          cp -r _output/* docs/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
@@ -111,20 +105,13 @@ jobs:
           if [ -n "$TOKEN" ]; then
             AUTH_HEADER="-H Authorization: Bearer $TOKEN"
           fi
-
-          DOWNLOAD_URL=$(
-            curl -sL $AUTH_HEADER "$API_URL" |
-              jq -r --arg pattern "${{ env.EXTENSION_BUNDLE_PATTERN }}" \
-                '.assets[] | select(.name | test($pattern)) | .browser_download_url' |
-              head -n 1
-          )
+          DOWNLOAD_URL=$(curl -sL $AUTH_HEADER "$API_URL" | jq -r --arg pattern "${{ env.EXTENSION_BUNDLE_PATTERN }}" '.assets[] | select(.name | test($pattern)) | .browser_download_url' | head -n 1)
           if [ -z "$DOWNLOAD_URL" ]; then
             echo "No bundle matching pattern found in release"
             exit 1
           fi
-
           curl -L ${TOKEN:+-H "Authorization: Bearer $TOKEN"} -o extension.zip "$DOWNLOAD_URL"
-          rm -rf _extensions/review
+          rm -rf _extensions/web-review
           mkdir -p _extensions
           unzip -o extension.zip -d _extensions
           rm extension.zip

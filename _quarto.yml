@@ -27,5 +27,12 @@ review:
     modules:
       - UIModule
       - ChangesModule
+  git:
+    provider: github
+    owner: mvwestendorp
+    repo: quarto-review-extension-github-demo
+    base-branch: main # optional; defaults to `main`
+    auth:
+      mode: pat
 filters:
   - review

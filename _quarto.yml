@@ -24,9 +24,6 @@ review:
   debug:
     enabled: true
     level: debug
-    modules:
-      - UIModule
-      - ChangesModule
   git:
     provider: github
     owner: mvwestendorp

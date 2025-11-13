@@ -2,7 +2,7 @@
 
 # Quarto Review Demo (GitHub)
 
-This repository renders the sample Quarto project from `example/` and deploys it to
+This repository renders the sample Quarto project and deploys it to
 GitHub Pages (plus a Docker image for on-prem distribution). The demo loads the latest
 Quarto review extension bundle from the `continuous` release of
 [mvwestendorp/quarto-review-extension](https://github.com/mvwestendorp/quarto-review-extension).

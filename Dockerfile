@@ -1,4 +1,4 @@
-FROM ghcr.io/quarto-dev/quarto:1.8.25 AS build
+FROM ghcr.io/quarto-dev/quarto:1.8.26 AS build
 
 ARG EXTENSION_BUNDLE_URL="https://github.com/mvwestendorp/quarto-review-extension/releases/download/continuous/quarto-review-extension-0.1.0.zip"
 

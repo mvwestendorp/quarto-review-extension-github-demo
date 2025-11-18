@@ -6,6 +6,12 @@ on:
   pull_request:
     branches: [ main ]
   workflow_dispatch:
+  schedule:
+    # Run daily at midnight UTC to check for extension updates
+    - cron: '0 0 * * *'
+  repository_dispatch:
+    # Allow external triggers (e.g., from the extension repo)
+    types: [extension-updated, manual-update]
 
 permissions:
   contents: read

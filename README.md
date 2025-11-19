@@ -38,6 +38,21 @@ Workflow steps:
 4. Upload `_output/` to GitHub Pages.
 5. Build and push Docker image `ghcr.io/mvwestendorp/quarto-review-extension-github-demo:main`.
 
+### Automatic Updates
+
+The workflow automatically checks for extension updates via:
+
+- **Daily Schedule**: Runs at midnight UTC every day to fetch and deploy the latest extension
+- **Manual Trigger**: Use "Run workflow" button in GitHub Actions
+- **Repository Dispatch**: The extension repo can trigger updates via webhook:
+  ```bash
+  curl -X POST \
+    -H "Accept: application/vnd.github+json" \
+    -H "Authorization: Bearer $GITHUB_TOKEN" \
+    https://api.github.com/repos/mvwestendorp/quarto-review-extension-github-demo/dispatches \
+    -d '{"event_type":"extension-updated"}'
+  ```
+
 Requirements:
 - If the extension repo is private, set `EXTENSION_BUNDLE_TOKEN` with a PAT giving
   `contents:read` access.

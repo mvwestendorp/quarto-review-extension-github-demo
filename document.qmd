@@ -30,9 +30,10 @@ The review extension provides several powerful features:
 Simply click on any text element to open the editor. The editor
 provides:
 
-1.  A textarea for editing markdown
-2.  Live preview of your changes
-3.  Save and cancel buttons
+1. A textarea for editing markdown
+2. Live preview of your changes
+3. Save and cancel buttons
+4. Test more
 
 ### Using CriticMarkup
 
@@ -73,9 +74,11 @@ Here's an example with {==highlighted text==}.
 The review extension supports multiple users with different permission
 levels:
 
--   **Viewer**: Can view and comment
--   **Editor**: Can view, comment, and edit
--   **Admin**: Full access including merge permissions
+- **Viewer**: Can view and comment
+
+- **Editor**: Can view, comment, and edit Test
+
+- **Admin**: Full access including merge permissions
 
 ## Technical Details
 
@@ -113,76 +116,8 @@ More text
 plot(cars)
 ```
 
-A caption for a figure should be editable
-
 ## Conclusion
 
 This example demonstrates the capabilities of the Quarto Review
 Extension. Try clicking on different elements to see the editing
 functionality in action!
-
-::: {#quarto-navigation-envelope .hidden}
-::: {data-review-markdown="[Quarto Review Example]{.hidden .quarto-markdown-envelope-contents
-render-id=&quot;cXVhcnRvLWludC1zaWRlYmFyLXRpdGxl&quot;} [Quarto Review
-Example]{.hidden .quarto-markdown-envelope-contents
-render-id=&quot;cXVhcnRvLWludC1uYXZiYXItdGl0bGU=&quot;} [Home]{.hidden
-.quarto-markdown-envelope-contents
-render-id=&quot;cXVhcnRvLWludC1uYXZiYXI6SG9tZQ==&quot;} [/document.html]{.hidden
-.quarto-markdown-envelope-contents
-render-id=&quot;cXVhcnRvLWludC1uYXZiYXI6L2RvY3VtZW50Lmh0bWw=&quot;}
-[Debug]{.hidden .quarto-markdown-envelope-contents
-render-id=&quot;cXVhcnRvLWludC1uYXZiYXI6RGVidWc=&quot;}
-[/debug-example.html]{.hidden .quarto-markdown-envelope-contents
-render-id=&quot;cXVhcnRvLWludC1uYXZiYXI6L2RlYnVnLWV4YW1wbGUuaHRtbA==&quot;}
-[Translation]{.hidden .quarto-markdown-envelope-contents
-render-id=&quot;cXVhcnRvLWludC1uYXZiYXI6VHJhbnNsYXRpb24=&quot;}
-[/doc-translation.html]{.hidden .quarto-markdown-envelope-contents
-render-id=&quot;cXVhcnRvLWludC1uYXZiYXI6L2RvYy10cmFuc2xhdGlvbi5odG1s&quot;}" class="review-editable" data-review-id="home-runner-work-quarto-review-extension-github-demo-quarto-review-extension-github-demo-output-document.sec-intro.conclusion.para-11" data-review-origin="source" data-review-type="Para"}
-[Quarto Review Example]{.hidden .quarto-markdown-envelope-contents
-render-id="cXVhcnRvLWludC1zaWRlYmFyLXRpdGxl"} [Quarto Review
-Example]{.hidden .quarto-markdown-envelope-contents
-render-id="cXVhcnRvLWludC1uYXZiYXItdGl0bGU="} [Home]{.hidden
-.quarto-markdown-envelope-contents
-render-id="cXVhcnRvLWludC1uYXZiYXI6SG9tZQ=="} [/document.html]{.hidden
-.quarto-markdown-envelope-contents
-render-id="cXVhcnRvLWludC1uYXZiYXI6L2RvY3VtZW50Lmh0bWw="}
-[Debug]{.hidden .quarto-markdown-envelope-contents
-render-id="cXVhcnRvLWludC1uYXZiYXI6RGVidWc="}
-[/debug-example.html]{.hidden .quarto-markdown-envelope-contents
-render-id="cXVhcnRvLWludC1uYXZiYXI6L2RlYnVnLWV4YW1wbGUuaHRtbA=="}
-[Translation]{.hidden .quarto-markdown-envelope-contents
-render-id="cXVhcnRvLWludC1uYXZiYXI6VHJhbnNsYXRpb24="}
-[/doc-translation.html]{.hidden .quarto-markdown-envelope-contents
-render-id="cXVhcnRvLWludC1uYXZiYXI6L2RvYy10cmFuc2xhdGlvbi5odG1s"}
-:::
-:::
-
-::: {#quarto-meta-markdown .hidden}
-::: {data-review-markdown="[Example Document with Review Extension -- Quarto Review
-Example]{.hidden .quarto-markdown-envelope-contents
-render-id=&quot;cXVhcnRvLW1ldGF0aXRsZQ==&quot;} [Example Document with Review
-Extension -- Quarto Review Example]{.hidden
-.quarto-markdown-envelope-contents
-render-id=&quot;cXVhcnRvLXR3aXR0ZXJjYXJkdGl0bGU=&quot;} [Example Document with
-Review Extension -- Quarto Review Example]{.hidden
-.quarto-markdown-envelope-contents render-id=&quot;cXVhcnRvLW9nY2FyZHRpdGxl&quot;}
-[Quarto Review Example]{.hidden .quarto-markdown-envelope-contents
-render-id=&quot;cXVhcnRvLW1ldGFzaXRlbmFtZQ==&quot;} []{.hidden
-.quarto-markdown-envelope-contents
-render-id=&quot;cXVhcnRvLXR3aXR0ZXJjYXJkZGVzYw==&quot;} []{.hidden
-.quarto-markdown-envelope-contents render-id=&quot;cXVhcnRvLW9nY2FyZGRkZXNj&quot;}" class="review-editable" data-review-id="home-runner-work-quarto-review-extension-github-demo-quarto-review-extension-github-demo-output-document.sec-intro.conclusion.para-12" data-review-origin="source" data-review-type="Para"}
-[Example Document with Review Extension -- Quarto Review
-Example]{.hidden .quarto-markdown-envelope-contents
-render-id="cXVhcnRvLW1ldGF0aXRsZQ=="} [Example Document with Review
-Extension -- Quarto Review Example]{.hidden
-.quarto-markdown-envelope-contents
-render-id="cXVhcnRvLXR3aXR0ZXJjYXJkdGl0bGU="} [Example Document with
-Review Extension -- Quarto Review Example]{.hidden
-.quarto-markdown-envelope-contents render-id="cXVhcnRvLW9nY2FyZHRpdGxl"}
-[Quarto Review Example]{.hidden .quarto-markdown-envelope-contents
-render-id="cXVhcnRvLW1ldGFzaXRlbmFtZQ=="} []{.hidden
-.quarto-markdown-envelope-contents
-render-id="cXVhcnRvLXR3aXR0ZXJjYXJkZGVzYw=="} []{.hidden
-.quarto-markdown-envelope-contents render-id="cXVhcnRvLW9nY2FyZGRkZXNj"}
-:::
-:::
